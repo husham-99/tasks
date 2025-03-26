@@ -11,7 +11,7 @@
             {
                 "title": "انهاء المشروع النهائي",
                 "date": "2/10/2025",
-                "isDone": true
+                "isDone": false
             },
             {
                 "title": "قراءة قران",
@@ -22,7 +22,21 @@
 
 
         ]
+
         
+        function getTasksfromStorage(){
+
+            let retrievedTasks = JSON.parse(localStorage.getItem("myTask"))
+            if(retrievedTasks == null){
+
+                tasks = []
+            }else{
+
+                tasks = retrievedTasks
+            }
+            // tasks = retrievedTasks ?? [] <= this is a short code to the code above
+        }
+        getTasksfromStorage()
 
         // add json to the main task div
 
@@ -42,7 +56,7 @@
                     
                         <div class="task ${element.isDone? 'done' : ''}">
                 
-                                <div style="width:70%; overflow:hidden">
+                                <div class = "div-one" style="width:70%; overflow:hidden">
                                     <h2 style="margin-bottom: 10px;" >${element.title} </h2>
                                     
 
@@ -54,7 +68,7 @@
                                 </div>
 
                                 <div class="button-div" style="width: 20%;display: flex; justify-content: space-between; align-items: center; ">
-                                    <button onclick = "deleteTask(${index})" class="circular" style=" background-color: rgb(114, 0, 0); flex-shrink: 0; color: #fff"><i class="fa-solid fa-trash"></i></button>
+                                    <button onclick = "deleteTask(${index})" class="circular" style=" background-color: rgb(114, 0, 0); flex-shrink: 0; color: #fff"><i class="fa-solid fa-trash-can"></i></button>
                                     ${element.isDone? `<button onclick = "completeTask(${index})" class="circular" style="background-color: rgb(118, 0, 101);flex-shrink: 0; color: #fff"><i class="fa-solid fa-close" ></i></button>` : `
                                     
                                     <button onclick = "completeTask(${index})" class="circular" style="background-color: rgb(0, 150, 30);flex-shrink: 0; color: #fff"><i class="fa-solid fa-check"></i></button>
@@ -100,6 +114,7 @@
             if(taskName.trim() !== '' && taskName !== null){
 
                 tasks.push(taskObj)
+                storeTasks()
                 fillTasksOnThePage()
 
             }
@@ -109,6 +124,8 @@
             
             
         })
+
+        
 
 
         // delete task
@@ -120,6 +137,7 @@
             if (isConfirmed == true){
 
                 tasks.splice(index,1)
+                storeTasks()
                 fillTasksOnThePage()
 
             }
@@ -136,6 +154,7 @@
             if(newTaskTitle !== '' && newTaskTitle !== null){
 
                 task.title = newTaskTitle
+                storeTasks()
                 fillTasksOnThePage()
 
             }
@@ -157,11 +176,22 @@
 
                 task.isDone = true
             }
+            storeTasks()
             
             fillTasksOnThePage()
             
             
 
+
+        }
+
+
+        // STORAGE FUNCTIONS
+
+        function storeTasks(){
+
+            let tasksString = JSON.stringify(tasks)
+            localStorage.setItem("myTask", tasksString)
 
         }
         
