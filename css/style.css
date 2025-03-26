@@ -88,7 +88,12 @@ button.circular{
     .button-div{
 
         width: 40% !important;
-        justify-content: space-around !important;
+        
+    }
+
+    .div-one{
+
+        width: 55%
     }
 
     .button-div i{
