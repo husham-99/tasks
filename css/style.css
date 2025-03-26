@@ -74,8 +74,14 @@ button.circular{
 
 @media (max-width:768px) {
     
-    
+    .tasks{
 
+        padding: 20px 10px !important;
+    }
+    .tasks-table{
+
+        width: 95%
+    }
     button.circular{
 
         width: 25px;
